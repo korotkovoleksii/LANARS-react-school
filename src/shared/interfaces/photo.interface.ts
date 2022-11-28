@@ -1,4 +1,4 @@
-export interface Photo {
+export interface IPhoto {
   date: string;
   description: string | undefined;
   id: number;
