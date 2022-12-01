@@ -1,12 +1,16 @@
 # LANARS react school
+
+## Link https://korotkov-react-school.herokuapp.com/
+
 #### This is a base for a future photo album project
 
 ## Project resources:
 
 ## Help services:
 
-## Project structure: 
-``` 
+## Project structure:
+
+```
 .
 ├── src
 │   ├── assets             # fonts, images and icons
@@ -14,22 +18,21 @@
 │   │   ├── services       # back-end logic
 │   │   ├── App.scss
 │   │   └── App.tsx
-│   ├── shared    
-│   │   ├── constants       
+│   ├── shared
+│   │   ├── constants
 │   │   ├── helpers        # helper functions and utils
 │   │   ├── hoc            # Higher Order Components
 │   │   ├── hooks          # For custom hooks
 │   │   ├── interfaces
 │   │   └── store          # Redux store, reducers and actions
 │   └── ...
-│   
+│
 ├── node_modules
 ├── package.json           # needed libraries
 ├── .vanilla.eslintr.json  # basic js linter configuration
 ├── .eslintr.json          # react and TS linter configuration
 └── tsconfig.json          # ts definition
 ```
-
 
 # Development server
 
