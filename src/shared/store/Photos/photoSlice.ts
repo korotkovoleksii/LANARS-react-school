@@ -48,8 +48,8 @@ const photoSlice = createSlice({
   name: '@@photo',
   initialState,
   reducers: {},
-  extraReducers:(bilder)=>{
-    bilder
+  extraReducers:(builder)=>{
+    builder
       .addCase(retrievePhotos.fulfilled,(state,action)=>{
         state.status = 'finished';
         state.data = action.payload;
