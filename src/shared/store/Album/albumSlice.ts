@@ -55,9 +55,11 @@ const albumSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(createAlbum.fulfilled, (state, action)=>{
+        state.status = 'finished';
         state.data.push(action.payload);
       })
       .addCase(updateAlbum.fulfilled, (state, action)=>{
+        state.status = 'finished';
         const index = state.data.findIndex(album => album.id === action.payload.id);
         state.data[index]={
           ...state.data[index],
@@ -65,6 +67,7 @@ const albumSlice = createSlice({
         };
       })
       .addCase(deleteAlbum.fulfilled, (state,action)=>{
+        state.status = 'finished';
         const index = state.data.findIndex(album => album.id === action.payload.id);
         state.data.splice(index,1);
       });

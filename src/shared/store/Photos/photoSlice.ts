@@ -55,9 +55,11 @@ const photoSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(createPhoto.fulfilled, (state, action)=>{
+        state.status = 'finished';
         state.data.push(action.payload);
       })
       .addCase(updatePhoto.fulfilled, (state, action)=>{
+        state.status = 'finished';
         const index = state.data.findIndex(photo => photo.id === action.payload.id);
         state.data[index]={
           ...state.data[index],
@@ -65,6 +67,7 @@ const photoSlice = createSlice({
         };
       })
       .addCase(deletePhoto.fulfilled, (state,action)=>{
+        state.status = 'finished';
         const index = state.data.findIndex(photo => photo.id === action.payload.id);
         state.data.splice(index,1);
       });
