@@ -12,15 +12,18 @@ type PhotoSliceT = {
 export const retrievePhotos = createAsyncThunk(
   'photos/retrieve',
   async () => {
+    // ! this endpoint dosen't accept query parameters
     const res =  await API.get('/api/photos') as IPhoto[];
+
     return res;
   }
 );
 export const createPhoto = createAsyncThunk(
   'photos/create',
-  async (photo: IPhoto) => {
-    const createdPhoto  = await API.post('/api/photos', photo) as IPhoto;
-    return createdPhoto;
+  async (photo: Omit<IPhoto, 'id'>) => {
+    // ! I get id but in doc this  endpoint must return new entity
+    const newEntity  = await API.post('/api/photos', photo) as IPhoto;
+    return newEntity;
   }
 );
 export const updatePhoto = createAsyncThunk(
@@ -33,7 +36,7 @@ export const updatePhoto = createAsyncThunk(
 export const deletePhoto = createAsyncThunk(
   'photo/delete',
   async (id: number) => {
-    await API.delete(`/api/photos?${id}`);
+    await API.delete(`/api/photos?id=${id}`);
     return {id};
   }
 );
@@ -56,6 +59,7 @@ const photoSlice = createSlice({
       })
       .addCase(createPhoto.fulfilled, (state, action)=>{
         state.status = 'finished';
+
         state.data.push(action.payload);
       })
       .addCase(updatePhoto.fulfilled, (state, action)=>{
@@ -70,6 +74,9 @@ const photoSlice = createSlice({
         state.status = 'finished';
         const index = state.data.findIndex(photo => photo.id === action.payload.id);
         state.data.splice(index,1);
+      })
+      .addCase(deletePhoto.rejected, (state)=>{
+        state.status='error';
       });
 
 
