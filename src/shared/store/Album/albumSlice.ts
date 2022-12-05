@@ -18,7 +18,7 @@ export const retrieveAlbum = createAsyncThunk(
 );
 export const createAlbum = createAsyncThunk(
   'album/create',
-  async (album: IAlbum) => {
+  async (album: Omit<IAlbum, 'id'>) => {
     const createdAlbum  = await API.post('/api/albums', album) as IAlbum;
     return createdAlbum;
   }
@@ -71,8 +71,6 @@ const albumSlice = createSlice({
           return item.id !==action.payload.id;
         });
       });
-
-
   },
 
 });

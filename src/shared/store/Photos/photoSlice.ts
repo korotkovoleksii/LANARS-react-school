@@ -56,7 +56,6 @@ const photoSlice = createSlice({
       })
       .addCase(createPhoto.fulfilled, (state, action)=>{
         state.status = 'finished';
-
         state.data.push(action.payload);
       })
       .addCase(updatePhoto.fulfilled, (state, action)=>{
@@ -66,7 +65,6 @@ const photoSlice = createSlice({
           ...state.data[index],
           ...action.payload,
         };
-
       })
       .addCase(deletePhoto.fulfilled, (state,action)=>{
         state.status = 'finished';
@@ -77,8 +75,6 @@ const photoSlice = createSlice({
       .addCase(deletePhoto.rejected, (state)=>{
         state.status='error';
       });
-
-
   },
 
 });
