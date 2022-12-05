@@ -20,7 +20,6 @@ export const createAlbum = createAsyncThunk(
   'album/create',
   async (album: IAlbum) => {
     const createdAlbum  = await API.post('/api/albums', album) as IAlbum;
-
     return createdAlbum;
   }
 );
@@ -34,7 +33,7 @@ export const updateAlbum = createAsyncThunk(
 export const deleteAlbum = createAsyncThunk(
   'album/delete',
   async (id: number) => {
-    await API.delete(`/api/albums?id=${id}`);
+    await API.delete(`/api/albums?ids=${id}`);
     return {id};
   }
 );
@@ -42,7 +41,6 @@ export const deleteAlbum = createAsyncThunk(
 const initialState: AlbumSliceT = {
   status: 'idle',
   data: [],
-
 };
 
 const albumSlice = createSlice({
