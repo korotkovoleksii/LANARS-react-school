@@ -18,9 +18,10 @@ export const retrieveAlbum = createAsyncThunk(
 );
 export const createAlbum = createAsyncThunk(
   'album/create',
-  async (photo: IAlbum) => {
-    const createdPhoto  = await API.post('/api/albums', photo) as IAlbum;
-    return createdPhoto;
+  async (album: IAlbum) => {
+    const createdAlbum  = await API.post('/api/albums', album) as IAlbum;
+
+    return createdAlbum;
   }
 );
 export const updateAlbum = createAsyncThunk(
@@ -33,7 +34,7 @@ export const updateAlbum = createAsyncThunk(
 export const deleteAlbum = createAsyncThunk(
   'album/delete',
   async (id: number) => {
-    await API.delete(`/api/albums?${id}`);
+    await API.delete(`/api/albums?id=${id}`);
     return {id};
   }
 );
