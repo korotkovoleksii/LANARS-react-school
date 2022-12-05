@@ -66,13 +66,13 @@ const photoSlice = createSlice({
           ...state.data[index],
           ...action.payload,
         };
-        // eslint-disable-next-line no-console
-        console.log(state.data[index]);
+
       })
       .addCase(deletePhoto.fulfilled, (state,action)=>{
         state.status = 'finished';
-        const index = state.data.findIndex(photo => photo.id === action.payload.id);
-        state.data.splice(index,1);
+        state.data = state.data.filter((item)=>{
+          return item.id !==action.payload.id;
+        });
       })
       .addCase(deletePhoto.rejected, (state)=>{
         state.status='error';
