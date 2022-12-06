@@ -6,41 +6,60 @@ import API from 'core/services/API';
 type PhotoSliceT = {
   status: 'idle' | 'loading' | 'finished' | 'error';
   data: IPhoto[];
+  error: string|null;
 
 };
 
 export const retrievePhotos = createAsyncThunk(
   'photos/retrieve',
-  async () => {
-    const res =  await API.get('/api/photos') as IPhoto[];
-    return res;
+
+  async (undefine,{rejectWithValue}) => {
+    try {
+      const res =  await API.get('/api/photos') as IPhoto[];
+      return res;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
 );
 export const createPhoto = createAsyncThunk(
   'photos/create',
-  async (photo: Omit<IPhoto, 'id'>) => {
-    const newEntity  = await API.post('/api/photos', photo) as IPhoto;
-    return newEntity;
+  async (photo: Omit<IPhoto, 'id'>, {rejectWithValue}) => {
+    try{
+      const newEntity  = await API.post('/api/photos', photo) as IPhoto;
+      return newEntity;
+    }catch(error){
+      return rejectWithValue(error);
+    }
   }
 );
 export const updatePhoto = createAsyncThunk(
   'photo/update',
-  async (photo: IPhoto) => {
-    const updatedPhoto = await API.patch('/api/photos',photo) as IPhoto;
-    return updatedPhoto;
+  async (photo: IPhoto, {rejectWithValue}) => {
+    try{
+      const updatedPhoto = await API.patch('/api/photos',photo) as IPhoto;
+      return updatedPhoto;
+    }catch(error){
+      return rejectWithValue(error);
+    }
   }
 );
 export const deletePhoto = createAsyncThunk(
   'photo/delete',
-  async (id: number) => {
-    await API.delete(`/api/photos?ids=${id}`);
-    return {id};
+  async (id: number, {rejectWithValue}) => {
+    try{
+      await API.delete(`/api/photos?ids=${id}`);
+      return {id};
+    }catch(error){
+      return rejectWithValue(error);
+    }
   }
 );
 
 const initialState: PhotoSliceT = {
   status: 'idle',
   data: [],
+  error:null,
 
 };
 
@@ -51,15 +70,12 @@ const photoSlice = createSlice({
   extraReducers:(builder)=>{
     builder
       .addCase(retrievePhotos.fulfilled,(state,action)=>{
-        state.status = 'finished';
         state.data = action.payload;
       })
       .addCase(createPhoto.fulfilled, (state, action)=>{
-        state.status = 'finished';
         state.data.push(action.payload);
       })
       .addCase(updatePhoto.fulfilled, (state, action)=>{
-        state.status = 'finished';
         const index = state.data.findIndex(photo => photo.id === action.payload.id);
         state.data[index]={
           ...state.data[index],
@@ -67,14 +83,23 @@ const photoSlice = createSlice({
         };
       })
       .addCase(deletePhoto.fulfilled, (state,action)=>{
-        state.status = 'finished';
         state.data = state.data.filter((item)=>{
           return item.id !==action.payload.id;
         });
       })
-      .addCase(deletePhoto.rejected, (state)=>{
-        state.status='error';
+      .addMatcher((action)=>action.type.endsWith('/fulfilled'),(state)=>{
+        state.status = 'finished';
+        state.error = null;
+      })
+      .addMatcher((action)=>action.type.endsWith('/pending'),(state)=>{
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addMatcher((action)=>action.type.endsWith('/rejected'),(state,action)=>{
+        state.status = 'error';
+        state.error = action.error.message;
       });
+
   },
 
 });
