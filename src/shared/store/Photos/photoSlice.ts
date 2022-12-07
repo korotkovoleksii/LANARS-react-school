@@ -1,14 +1,15 @@
+import { IDataSlice } from './../../interfaces/slice.interface';
 import { IPhoto } from './../../interfaces/photo.interface';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import API from 'core/services/API';
 
-type PhotoSliceT = {
-  status: 'idle' | 'loading' | 'finished' | 'error';
-  data: IPhoto[];
-  error: string|null;
+// type PhotoSliceT = {
+//   status: 'idle' | 'loading' | 'finished' | 'error';
+//   data: IPhoto[];
+//   error: string|null;
 
-};
+// };
 
 export const retrievePhotos = createAsyncThunk(
   'photos/retrieve',
@@ -56,7 +57,7 @@ export const deletePhoto = createAsyncThunk(
   }
 );
 
-const initialState: PhotoSliceT = {
+const initialState: IDataSlice<IPhoto> = {
   status: 'idle',
   data: [],
   error:null,
