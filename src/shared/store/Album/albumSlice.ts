@@ -1,13 +1,8 @@
+import { IDataSlice } from './../../interfaces/slice.interface';
 import { IAlbum } from './../../interfaces/album.interface';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import API from 'core/services/API';
-
-type AlbumSliceT = {
-  status: 'idle' | 'loading' | 'finished' | 'error';
-  data: IAlbum[];
-
-};
 
 export const retrieveAlbum = createAsyncThunk(
   'album/retrieve',
@@ -38,9 +33,10 @@ export const deleteAlbum = createAsyncThunk(
   }
 );
 
-const initialState: AlbumSliceT = {
+const initialState: IDataSlice<IAlbum> = {
   status: 'idle',
   data: [],
+  error: null,
 };
 
 const albumSlice = createSlice({
@@ -50,15 +46,12 @@ const albumSlice = createSlice({
   extraReducers:(builder)=>{
     builder
       .addCase(retrieveAlbum.fulfilled,(state,action)=>{
-        state.status = 'finished';
         state.data = action.payload;
       })
       .addCase(createAlbum.fulfilled, (state, action)=>{
-        state.status = 'finished';
         state.data.push(action.payload);
       })
       .addCase(updateAlbum.fulfilled, (state, action)=>{
-        state.status = 'finished';
         const index = state.data.findIndex(album => album.id === action.payload.id);
         state.data[index]={
           ...state.data[index],
@@ -66,11 +59,23 @@ const albumSlice = createSlice({
         };
       })
       .addCase(deleteAlbum.fulfilled, (state,action)=>{
-        state.status = 'finished';
         state.data = state.data.filter((item)=>{
           return item.id !==action.payload.id;
         });
+      })
+      .addMatcher((action)=>action.type.endsWith('/fulfilled'),(state)=>{
+        state.status = 'finished';
+        state.error = null;
+      })
+      .addMatcher((action)=>action.type.endsWith('/pending'),(state)=>{
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addMatcher((action)=>action.type.endsWith('/rejected'),(state,action)=>{
+        state.status = 'error';
+        state.error = action.error.message;
       });
+
   },
 
 });
