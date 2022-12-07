@@ -4,13 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import API from 'core/services/API';
 
-// type PhotoSliceT = {
-//   status: 'idle' | 'loading' | 'finished' | 'error';
-//   data: IPhoto[];
-//   error: string|null;
-
-// };
-
 export const retrievePhotos = createAsyncThunk(
   'photos/retrieve',
 
