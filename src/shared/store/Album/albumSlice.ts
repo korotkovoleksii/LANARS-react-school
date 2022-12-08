@@ -6,31 +6,52 @@ import API from 'core/services/API';
 
 export const retrieveAlbum = createAsyncThunk(
   'album/retrieve',
-  async () => {
-    const res = await API.get('/api/albums') as IAlbum[];
-    return res;
+  async (ids: number[], { rejectWithValue }) => {
+    try {
+      const res = await API.get(`/api/albums${ids.length > 0 ? `?ids=${ids.join()}` : ''}`) as IAlbum[] | IAlbum;
+      return res;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
 );
+
 export const createAlbum = createAsyncThunk(
   'album/create',
-  async (album: Omit<IAlbum, 'id'>) => {
-    const createdAlbum = await API.post('/api/albums', album) as IAlbum;
-    return createdAlbum;
+  async (album: Omit<IAlbum, 'id'>, { rejectWithValue }) => {
+    try {
+      const createdAlbum = await API.post('/api/albums', album) as IAlbum;
+      return createdAlbum;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+
   }
 );
+
 export const updateAlbum = createAsyncThunk(
   'album/update',
-  async (album: IAlbum) => {
-    const updatedAlbum = await API.patch('/api/albums', album) as IAlbum;
-    return updatedAlbum;
+  async (album: IAlbum, { rejectWithValue }) => {
+    try {
+      const updatedAlbum = await API.patch('/api/albums', album) as IAlbum;
+      return updatedAlbum;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
 );
+
 export const deleteAlbum = createAsyncThunk(
   'album/delete',
-  async (id: number) => {
-    await API.delete(`/api/albums?ids=${id}`);
-    return { id };
+  async (ids: [number, ...number[]], { rejectWithValue }) => {
+    try {
+      await API.delete(`/api/albums?ids=${ids.join()}`);
+      return { ids };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
+
 );
 
 const initialState: IDataSlice<IAlbum> = {
@@ -46,7 +67,7 @@ const albumSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(retrieveAlbum.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload) ? [...action.payload] : [action.payload];
       })
       .addCase(createAlbum.fulfilled, (state, action) => {
         state.data.push(action.payload);
@@ -60,7 +81,7 @@ const albumSlice = createSlice({
       })
       .addCase(deleteAlbum.fulfilled, (state, action) => {
         state.data = state.data.filter((item) => {
-          return item.id !== action.payload.id;
+          return !action.payload.ids.includes(item.id);
         });
       })
       .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
