@@ -92,7 +92,7 @@ const photoSlice = createSlice({
       })
       .addMatcher((action) => action.type.endsWith('/rejected'), (state, action) => {
         state.status = 'error';
-        state.error = action.error.message;
+        state.error = action.payload.message;
       });
   },
 });
