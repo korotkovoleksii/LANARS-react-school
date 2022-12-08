@@ -6,10 +6,9 @@ import API from 'core/services/API';
 
 export const retrievePhotos = createAsyncThunk(
   'photos/retrieve',
-
-  async (undefine, { rejectWithValue }) => {
+  async (ids: number[], { rejectWithValue }) => {
     try {
-      const res = await API.get('/api/photos') as IPhoto[];
+      const res = await API.get(`/api/photos${ids.length > 0 ? `?ids=${ids.join()}` : ''}`) as IPhoto[] | IPhoto;
       return res;
     } catch (error) {
       return rejectWithValue(error);
@@ -43,10 +42,10 @@ export const updatePhoto = createAsyncThunk(
 
 export const deletePhoto = createAsyncThunk(
   'photo/delete',
-  async (id: number, { rejectWithValue }) => {
+  async (ids: [number, ...number[]], { rejectWithValue }) => {
     try {
-      await API.delete(`/api/photos?ids=${id}`);
-      return { id };
+      await API.delete(`/api/photos?ids=${ids.join()}`);
+      return { ids };
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -66,7 +65,7 @@ const photoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(retrievePhotos.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload) ? [...action.payload] : [action.payload];
       })
       .addCase(createPhoto.fulfilled, (state, action) => {
         state.data.push(action.payload);
@@ -80,7 +79,7 @@ const photoSlice = createSlice({
       })
       .addCase(deletePhoto.fulfilled, (state, action) => {
         state.data = state.data.filter((item) => {
-          return item.id !== action.payload.id;
+          return !action.payload.ids.includes(item.id);
         });
       })
       .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
