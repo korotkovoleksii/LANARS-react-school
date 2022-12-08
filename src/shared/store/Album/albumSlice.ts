@@ -7,21 +7,21 @@ import API from 'core/services/API';
 export const retrieveAlbum = createAsyncThunk(
   'album/retrieve',
   async () => {
-    const res =  await API.get('/api/albums') as IAlbum[];
+    const res = await API.get('/api/albums') as IAlbum[];
     return res;
   }
 );
 export const createAlbum = createAsyncThunk(
   'album/create',
   async (album: Omit<IAlbum, 'id'>) => {
-    const createdAlbum  = await API.post('/api/albums', album) as IAlbum;
+    const createdAlbum = await API.post('/api/albums', album) as IAlbum;
     return createdAlbum;
   }
 );
 export const updateAlbum = createAsyncThunk(
   'album/update',
   async (album: IAlbum) => {
-    const updatedAlbum = await API.patch('/api/albums',album) as IAlbum;
+    const updatedAlbum = await API.patch('/api/albums', album) as IAlbum;
     return updatedAlbum;
   }
 );
@@ -29,7 +29,7 @@ export const deleteAlbum = createAsyncThunk(
   'album/delete',
   async (id: number) => {
     await API.delete(`/api/albums?ids=${id}`);
-    return {id};
+    return { id };
   }
 );
 
@@ -43,35 +43,35 @@ const albumSlice = createSlice({
   name: '@@album',
   initialState,
   reducers: {},
-  extraReducers:(builder)=>{
+  extraReducers: (builder) => {
     builder
-      .addCase(retrieveAlbum.fulfilled,(state,action)=>{
+      .addCase(retrieveAlbum.fulfilled, (state, action) => {
         state.data = action.payload;
       })
-      .addCase(createAlbum.fulfilled, (state, action)=>{
+      .addCase(createAlbum.fulfilled, (state, action) => {
         state.data.push(action.payload);
       })
-      .addCase(updateAlbum.fulfilled, (state, action)=>{
+      .addCase(updateAlbum.fulfilled, (state, action) => {
         const index = state.data.findIndex(album => album.id === action.payload.id);
-        state.data[index]={
+        state.data[index] = {
           ...state.data[index],
           ...action.payload,
         };
       })
-      .addCase(deleteAlbum.fulfilled, (state,action)=>{
-        state.data = state.data.filter((item)=>{
-          return item.id !==action.payload.id;
+      .addCase(deleteAlbum.fulfilled, (state, action) => {
+        state.data = state.data.filter((item) => {
+          return item.id !== action.payload.id;
         });
       })
-      .addMatcher((action)=>action.type.endsWith('/fulfilled'),(state)=>{
+      .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
         state.status = 'finished';
         state.error = null;
       })
-      .addMatcher((action)=>action.type.endsWith('/pending'),(state)=>{
+      .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
         state.status = 'loading';
         state.error = null;
       })
-      .addMatcher((action)=>action.type.endsWith('/rejected'),(state,action)=>{
+      .addMatcher((action) => action.type.endsWith('/rejected'), (state, action) => {
         state.status = 'error';
         state.error = action.error.message;
       });
