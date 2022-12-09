@@ -1,3 +1,4 @@
+import { isFulfilledAction, isRejectedAction, isPendingAction, rejectedAction, pendingAction, fulfilledAction } from './../helpers';
 import { IDataSlice } from './../../interfaces/slice.interface';
 import { IPhoto } from './../../interfaces/photo.interface';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -82,18 +83,9 @@ const photoSlice = createSlice({
           return !action.payload.ids.includes(item.id);
         });
       })
-      .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
-        state.status = 'finished';
-        state.error = null;
-      })
-      .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addMatcher((action) => action.type.endsWith('/rejected'), (state, action) => {
-        state.status = 'error';
-        state.error = action.payload.message;
-      });
+      .addMatcher(isFulfilledAction('photos/'), fulfilledAction)
+      .addMatcher(isPendingAction('photos/'), pendingAction)
+      .addMatcher(isRejectedAction('photos/'), rejectedAction);
   },
 });
 
