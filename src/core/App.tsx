@@ -1,7 +1,8 @@
-import { Box, Divider, CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import { appTheme } from '../styles/appTheme';
+import { Box, Divider, CssBaseline, Container, ThemeProvider } from '@mui/material';
+
 import Header from 'modules/components/Header';
+import SideMenu from 'modules/components/SideMenu';
+import { appTheme } from '../styles/appTheme';
 import { colors } from 'styles/variables';
 
 const App = (): JSX.Element => {
@@ -11,6 +12,9 @@ const App = (): JSX.Element => {
         <CssBaseline />
         <Header />
         <Divider sx={{ bgcolor: colors.light.divider }} />
+        <Container>
+          <SideMenu />
+        </Container>
       </ThemeProvider>
     </Box>
   );
