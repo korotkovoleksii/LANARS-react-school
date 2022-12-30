@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { colors } from 'styles/variables';
 import { mainSideMenuItem } from './consts/sideMenuItems';
+import { Link } from 'react-router-dom';
 
 const SideMenu = (): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -16,24 +17,27 @@ const SideMenu = (): JSX.Element => {
       <List>
         {mainSideMenuItem.map((item, index) => (
           <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              sx={{
-                borderRadius: '44px',
-                '&:hover': {
-                  bgcolor: 'transparent',
-                },
-                '&.Mui-selected': {
-                  bgcolor: colors.light.selectedBtnMenuBG,
-                  color: colors.light.selectedBtnMenuItem,
-                  '& .MuiListItemIcon-root': { color: colors.light.selectedBtnMenuItem },
-                },
-              }}
-              selected={selectedIndex === index}
-              onClick={(event) => handleListItemClick(event, index)}
-            >
-              <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
+            <Link to={item.route} style={{ textDecoration: 'none', color: colors.light.textPrimary }}>
+              <ListItemButton
+                sx={{
+                  width: 164,
+                  borderRadius: '44px',
+                  '&:hover': {
+                    bgcolor: 'transparent',
+                  },
+                  '&.Mui-selected': {
+                    bgcolor: colors.light.selectedBtnMenuBG,
+                    color: colors.light.selectedBtnMenuItem,
+                    '& .MuiListItemIcon-root': { color: colors.light.selectedBtnMenuItem },
+                  },
+                }}
+                selected={selectedIndex === index}
+                onClick={(event) => handleListItemClick(event, index)}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -46,7 +50,6 @@ const SideMenu = (): JSX.Element => {
         width: 306,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: 164,
           position: 'static',
           bgcolor: 'transparent',
           boxSizing: 'border-box',
