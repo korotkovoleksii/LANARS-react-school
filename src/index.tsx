@@ -6,16 +6,21 @@ import Storage from 'core/services/back-end/Storage';
 import { firstInit } from 'core/services/fistInit';
 import '../src/styles/index.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import {store} from './shared/store';
+
 (async () => {
   await Storage.createObjectStore(['albums', 'photos']);
   firstInit();
   const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
   root.render(
     <React.StrictMode>
+      <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.StrictMode>,
+      </Provider>
+    </React.StrictMode>
   );
 
   // If you want to start measuring performance in your app, pass a function
