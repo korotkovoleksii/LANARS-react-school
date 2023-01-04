@@ -10,7 +10,7 @@ const Header = (): JSX.Element => {
         pb: 1,
       }}
     >
-      <Container>
+      <Container disableGutters>
         <Grid container>
           <Grid item xs={2}>
             <Stack direction="row" spacing={2} alignItems={'center'}>
@@ -34,4 +34,5 @@ const Header = (): JSX.Element => {
     </Box>
   );
 };
+
 export default Header;

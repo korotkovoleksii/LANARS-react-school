@@ -7,7 +7,7 @@ import { firstInit } from 'core/services/fistInit';
 import '../src/styles/index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import {store} from './shared/store';
+import { store } from './shared/store';
 
 (async () => {
   await Storage.createObjectStore(['albums', 'photos']);
@@ -16,11 +16,11 @@ import {store} from './shared/store';
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 
   // If you want to start measuring performance in your app, pass a function

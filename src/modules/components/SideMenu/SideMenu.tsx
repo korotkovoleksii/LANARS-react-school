@@ -7,14 +7,14 @@ import { mainSideMenuItem } from './consts/sideMenuItems';
 import { Link } from 'react-router-dom';
 
 const SideMenu = (): JSX.Element => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
     setSelectedIndex(index);
   };
   const drawer = (
     <Box>
-      <List>
+      <List disablePadding>
         {mainSideMenuItem.map((item, index) => (
           <ListItem key={item.id} disablePadding>
             <Link to={item.route} style={{ textDecoration: 'none', color: colors.light.textPrimary }}>
