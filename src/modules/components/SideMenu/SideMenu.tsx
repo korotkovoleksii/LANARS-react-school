@@ -4,18 +4,19 @@ import { useState } from 'react';
 
 import { colors } from 'styles/variables';
 import { mainSideMenuItem } from './consts/sideMenuItems';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SideMenu = (): JSX.Element => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const location = useLocation();
+  const [selectedPoint, setSelectedPoint] = useState(location.pathname);
 
-  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
-    setSelectedIndex(index);
+  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, point: string) => {
+    setSelectedPoint(point);
   };
   const drawer = (
     <Box>
       <List disablePadding>
-        {mainSideMenuItem.map((item, index) => (
+        {mainSideMenuItem.map((item) => (
           <ListItem key={item.id} disablePadding>
             <Link to={item.route} style={{ textDecoration: 'none', color: colors.light.textPrimary }}>
               <ListItemButton
@@ -31,8 +32,8 @@ const SideMenu = (): JSX.Element => {
                     '& .MuiListItemIcon-root': { color: colors.light.selectedBtnMenuItem },
                   },
                 }}
-                selected={selectedIndex === index}
-                onClick={(event) => handleListItemClick(event, index)}
+                selected={selectedPoint === item.route}
+                onClick={(event) => handleListItemClick(event, item.route)}
               >
                 <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.label} />
