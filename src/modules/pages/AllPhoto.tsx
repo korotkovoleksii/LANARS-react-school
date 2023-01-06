@@ -4,22 +4,25 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { colors } from 'styles/variables';
 import { useEffect } from 'react';
-import { retrievePhotos } from 'shared/store/Photos/photoSlice';
+import { clearPhotos, retrievePhotos } from 'shared/store/Photos/photoSlice';
 
 const AllPhoto = (): JSX.Element => {
   const allPhotos = useAppSelector((state) => state.photo);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(retrievePhotos([]));
-  }, []);
+    return () => {
+      dispatch(clearPhotos());
+    };
+  }, [dispatch]);
   // eslint-disable-next-line no-console
   return (
     <>
-      {allPhotos.data.length !== 0 ? (
+      {allPhotos.data.length !== 0 && allPhotos.status === 'finished' ? (
         <Box>
           <ImageList gap={8} cols={6}>
             {allPhotos.data.map((item) => (
-              <ImageListItem key={item.image}>
+              <ImageListItem key={item.id}>
                 <img src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
               </ImageListItem>
             ))}
