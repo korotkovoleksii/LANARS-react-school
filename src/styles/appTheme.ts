@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { createTheme } from '@mui/material/styles';
 import { colors } from './variables';
 
@@ -10,25 +11,15 @@ export const appTheme = createTheme({
       primary: colors.light.textPrimary,
       secondary: colors.light.textSecondary,
     },
-    background: { default: colors.light.background },
   },
   typography: {
     fontFamily: ['Saira', 'sans-serif'].join(','),
+    fontSize: 16,
 
-    h6: {
-      fontWeight: 500,
-      fontSize: 22,
-      letterSpacing: 0.2,
-    },
-    subtitle1: {
-      fontWeight: 400,
-      fontSize: 16,
-      letterSpacing: 0.2,
-    },
+    body1: { fontWeight: 500 },
+    subtitle1: { fontSize: 16 },
     subtitle2: {
       fontWeight: 600,
-      fontSize: 16,
-      letterSpacing: 0.2,
     },
   },
   components: {
@@ -68,6 +59,9 @@ export const appTheme = createTheme({
           },
         },
       },
+    },
+    MuiListItemButton: {
+      styleOverrides: {},
     },
   },
 });
