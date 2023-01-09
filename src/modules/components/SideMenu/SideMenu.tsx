@@ -2,7 +2,7 @@
 import { Box, Drawer, ListItem, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useState } from 'react';
 import { colors } from 'styles/variables';
-import { mainSideMenuItem } from './consts/sideMenuItems';
+import { mainSideMenuItem } from '../../../shared/constants/sideMenuItems';
 import { Link, useLocation } from 'react-router-dom';
 
 const SideMenu = (): JSX.Element => {

@@ -51,16 +51,14 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
           >
             <MoreVertIcon />
           </IconButton>
-        }
-      />
+        }/>
       {photos.data.length > 1 ? (
         <CardMedia
           component="img"
           height="280"
           image={`data:image/jpeg;base64,${photos.data[0].image}`}
           alt={title}
-          sx={{ borderRadius: '8px' }}
-        />
+          sx={{ borderRadius: '8px' }}/>
       ) : (
         <Box
           height="280px"
@@ -77,8 +75,7 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
             sx={{
               color: colors.light.selectedBtnMenuBG,
               fontSize: 160,
-            }}
-          />
+            }}/>
         </Box>
       )}
       <Box>

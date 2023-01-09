@@ -16,7 +16,7 @@ import { store } from './shared/store';
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/LANARS-react-school">
           <App />
         </BrowserRouter>
       </Provider>

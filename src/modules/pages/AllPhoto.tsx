@@ -41,8 +41,7 @@ const AllPhoto = (): JSX.Element => {
             sx={{
               fontSize: 160,
               color: colors.light.iconNoPhotoYet,
-            }}
-          />
+            }}/>
           <Typography variant="subtitle1" component={'div'} sx={{ textAlign: 'center', color: colors.light.textSecondary }}>
             There are no photos yet. Please <br /> click{' '}
             <Typography variant="subtitle2" component="span">
