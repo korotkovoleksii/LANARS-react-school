@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/lanars-react-school/static/css/main.90f6920e.css",
+    "main.js": "/lanars-react-school/static/js/main.80c9db77.js",
+    "static/js/787.16fcc3cb.chunk.js": "/lanars-react-school/static/js/787.16fcc3cb.chunk.js",
+    "static/media/TwYWpt.webp": "/lanars-react-school/static/media/TwYWpt.857cb72b96ef9c6aa45e.webp",
+    "static/media/3029022.jpg": "/lanars-react-school/static/media/3029022.6c38167939a161a52d96.jpg",
+    "static/media/kcTYOU.jpg": "/lanars-react-school/static/media/kcTYOU.3697ae1bf22f8602c243.jpg",
+    "static/media/4k-space-wallpaper-2.jpg": "/lanars-react-school/static/media/4k-space-wallpaper-2.20b157fb3baa0546797d.jpg",
+    "static/media/lt47o5qub95qmqkx.jpg": "/lanars-react-school/static/media/lt47o5qub95qmqkx.066cb045ac1f327c5236.jpg",
+    "static/media/Stunning-Space-Wallpapers-5_webp": "/lanars-react-school/static/media/Stunning-Space-Wallpapers-5_4d470f76dc99e18ad75087b1b8410ea9.a74520829453742a6bce.webp",
+    "static/media/8763.jpg": "/lanars-react-school/static/media/8763.fa109f79ea85c3028665.jpg",
+    "static/media/logo.svg": "/lanars-react-school/static/media/logo.f31f5198739c25d9ab418170f4eefee1.svg",
+    "index.html": "/lanars-react-school/index.html",
+    "main.90f6920e.css.map": "/lanars-react-school/static/css/main.90f6920e.css.map",
+    "main.80c9db77.js.map": "/lanars-react-school/static/js/main.80c9db77.js.map",
+    "787.16fcc3cb.chunk.js.map": "/lanars-react-school/static/js/787.16fcc3cb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90f6920e.css",
+    "static/js/main.80c9db77.js"
+  ]
+}
