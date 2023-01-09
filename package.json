@@ -1,7 +1,6 @@
 {
   "name": "lanars-react-school",
   "version": "0.1.0",
-  "homepage": "https://korotkov-app.herokuapp.com/LANARS-react-school",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -22,8 +21,8 @@
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.6.1",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "sort-by": "^1.2.0",
     "typescript": "^4.9.3",
