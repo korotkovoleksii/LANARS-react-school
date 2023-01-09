@@ -4,7 +4,6 @@ import { colors } from 'styles/variables';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import AlbumCard from 'modules/components/AlbumCard';
-
 import { useEffect } from 'react';
 
 const Albums = (): JSX.Element => {

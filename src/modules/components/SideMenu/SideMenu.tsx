@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Box, Drawer, ListItem, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useState } from 'react';
-
 import { colors } from 'styles/variables';
 import { mainSideMenuItem } from './consts/sideMenuItems';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,10 +8,10 @@ import { Link, useLocation } from 'react-router-dom';
 const SideMenu = (): JSX.Element => {
   const location = useLocation();
   const [selectedPoint, setSelectedPoint] = useState(location.pathname);
-
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, point: string) => {
     setSelectedPoint(point);
   };
+
   const drawer = (
     <Box>
       <List disablePadding>

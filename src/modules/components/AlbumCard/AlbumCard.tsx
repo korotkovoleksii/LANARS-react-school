@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Box, Card, Typography, CardHeader, IconButton, CardMedia } from '@mui/material';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
-import { retrievePhotos } from 'shared/store/Photos/photoSlice';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
+import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
+import { retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { colors } from 'styles/variables';
 
 const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: number; countPhotos: number }): JSX.Element => {

@@ -15,7 +15,6 @@ const AllPhoto = (): JSX.Element => {
       dispatch(clearPhotos());
     };
   }, [dispatch]);
-  // eslint-disable-next-line no-console
   return (
     <>
       {allPhotos.data.length !== 0 && allPhotos.status === 'finished' ? (
