@@ -1,7 +1,7 @@
 {
   "name": "lanars-react-school",
   "version": "0.1.0",
-  "homepage": "https://korotkovoleksii.github.io/LANARS-react-school",
+  "homepage": "https://korotkov-app.herokuapp.com/LANARS-react-school",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
