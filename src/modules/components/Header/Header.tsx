@@ -21,8 +21,7 @@ const Header = (): JSX.Element => {
                   width: 40,
                 }}
                 src={logo}
-                alt="Logo"
-              />
+                alt="Logo"/>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'theme.palette.text.primary' }}>
                 React School
               </Typography>

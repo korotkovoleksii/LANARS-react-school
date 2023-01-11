@@ -4,7 +4,6 @@ import { colors } from 'styles/variables';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import AlbumCard from 'modules/components/AlbumCard';
-
 import { useEffect } from 'react';
 
 const Albums = (): JSX.Element => {
@@ -30,8 +29,7 @@ const Albums = (): JSX.Element => {
             sx={{
               fontSize: 160,
               color: colors.light.iconNoPhotoYet,
-            }}
-          />
+            }}/>
           <Typography variant="subtitle1" component={'div'} sx={{ textAlign: 'center', color: colors.light.textSecondary }}>
             There are no albums yet. Please <br /> click{' '}
             <Typography variant="subtitle2" component="span">

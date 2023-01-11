@@ -6,7 +6,6 @@ import { colors } from './variables';
 export const appTheme = createTheme({
   palette: {
     mode: 'light',
-
     text: {
       primary: colors.light.textPrimary,
       secondary: colors.light.textSecondary,
