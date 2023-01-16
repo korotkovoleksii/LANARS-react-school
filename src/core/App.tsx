@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
         <Header />
-        <Divider sx={{ bgcolor: colors.light.divider }} />
+        <Divider sx={{ bgcolor: colors.light.divider, borderColor:colors.light.divider }} />
         <Container disableGutters>
           <Box sx={{ display: 'flex', height: 'calc(100vh - 65px)', pt: 3 }}>
             <SideMenu />
