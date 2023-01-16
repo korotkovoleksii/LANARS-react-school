@@ -78,7 +78,7 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
             }}/>
         </Box>
       )}
-      <Box>
+      <Box sx={{mt:2}}>
         <Typography
           sx={{
             lineHeight: '24px',
@@ -89,7 +89,7 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
         >
           {title}
         </Typography>
-        <Typography variant="caption">{countPhotos} images</Typography>
+        <Typography variant="caption" sx={{mt:1}}>{countPhotos} images</Typography>
       </Box>
     </Card>
   );
