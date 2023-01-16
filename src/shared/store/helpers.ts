@@ -1,4 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
+import { Status } from 'shared/helpers/statusRequstRTK';
 
 const hasPrefix = (action: AnyAction, prefix: string) =>
   action.type.startsWith(prefix);
@@ -25,14 +26,14 @@ export const isFulfilledAction = (prefix: string) => (
 };
 
 export const rejectedAction = (state: { status: string; error: string | null }, action: AnyAction): void => {
-  state.status = 'error';
+  state.status = Status.Error;
   state.error = action.payload.message;
 };
 export const pendingAction = (state: { status: string; error: string | null }): void => {
-  state.status = 'loading';
+  state.status = Status.Loading;
   state.error = null;
 };
 export const fulfilledAction = (state: { status: string; error: string | null }): void => {
-  state.status = 'finished';
+  state.status = Status.Finished;
   state.error = null;
 };
