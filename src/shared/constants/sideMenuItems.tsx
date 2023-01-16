@@ -1,6 +1,4 @@
-// import PhotoOutlinedIcon from '@mui/icons-material/PhotoOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
-// import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import Endpoints from 'shared/constants/endpoints';
 
