@@ -52,7 +52,7 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
             <MoreVertIcon />
           </IconButton>
         }/>
-      {photos.data.length > 1 ? (
+      {photos.error===null&& photos.data.length? (
         <CardMedia
           component="img"
           height="280"
