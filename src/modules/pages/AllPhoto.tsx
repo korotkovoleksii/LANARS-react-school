@@ -5,6 +5,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { colors } from 'styles/variables';
 import { useEffect } from 'react';
 import { clearPhotos, retrievePhotos } from 'shared/store/Photos/photoSlice';
+import { Status } from 'shared/helpers/statusRequstRTK';
 
 const AllPhoto = (): JSX.Element => {
   const allPhotos = useAppSelector((state) => state.photo);
@@ -17,7 +18,7 @@ const AllPhoto = (): JSX.Element => {
   }, [dispatch]);
   return (
     <>
-      {allPhotos.data.length !== 0 && allPhotos.status === 'finished' ? (
+      {allPhotos.data.length !== 0 && allPhotos.status === Status.Finished ? (
         <Box>
           <ImageList gap={8} cols={6}>
             {allPhotos.data.map((item) => (
