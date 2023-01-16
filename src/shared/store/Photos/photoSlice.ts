@@ -7,9 +7,10 @@ import API from 'core/services/API';
 
 export const retrievePhotos = createAsyncThunk('photos/retrieve', async (ids: number[], { rejectWithValue }) => {
   try {
-    const res = (await API.get(`/api/photos${ids.length > 0 ? `?ids=${ids.join()}` : ''}`)) as IPhoto[] | IPhoto;
-    // ! response is undefine if we use unexist id
-    return res ? res : [];
+    const res = (await API.get(`/api/photos${ids.length > 0 ? `?ids=${ids.join()}` : ''}`));
+    // eslint-disable-next-line no-console
+    console.log(res);
+    return Array.isArray(res)? res as IPhoto[]:res as IPhoto;
   } catch (error) {
     return rejectWithValue(error);
   }
