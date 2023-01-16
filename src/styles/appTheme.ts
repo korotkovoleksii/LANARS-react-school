@@ -15,7 +15,7 @@ export const appTheme = createTheme({
     fontFamily: ['Saira', 'sans-serif'].join(','),
     fontSize: 16,
 
-    body1: { fontWeight: 500 },
+    body1: { fontWeight: 500, fontSize:16 },
     subtitle1: { fontSize: 16 },
     subtitle2: {
       fontWeight: 600,
@@ -62,5 +62,6 @@ export const appTheme = createTheme({
     MuiListItemButton: {
       styleOverrides: {},
     },
+
   },
 });

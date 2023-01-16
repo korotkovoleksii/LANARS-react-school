@@ -21,6 +21,7 @@ const SideMenu = (): JSX.Element => {
               <ListItemButton
                 sx={{
                   width: 164,
+                  height: 48,
                   borderRadius: '44px',
                   '&:hover': {
                     bgcolor: 'transparent',
@@ -34,7 +35,17 @@ const SideMenu = (): JSX.Element => {
                 selected={selectedPoint === item.route}
                 onClick={(event) => handleListItemClick(event, item.route)}
               >
-                <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 42,
+                    '& .MuiSvgIcon-root': {
+                      weight: 25,
+                      height: 25,
+                    },
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
                 <ListItemText primary={item.label} />
               </ListItemButton>
             </Link>
