@@ -6,7 +6,7 @@ import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import AlbumCard from 'modules/components/AlbumCard';
 import { useEffect } from 'react';
 import { clearPhotos } from 'shared/store/Photos/photoSlice';
-import { Status } from 'shared/helpers/statusRequstRTK';
+import { Status } from 'shared/helpers/statusRequestRTK';
 
 const Albums = (): JSX.Element => {
   const albums = useAppSelector((store) => store.album);
