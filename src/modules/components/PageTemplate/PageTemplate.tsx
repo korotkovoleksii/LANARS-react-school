@@ -5,7 +5,7 @@ const PageTemplate = ({ header, body }: { header: JSX.Element; body: JSX.Element
   return (
     <Box>
       <Container disableGutters>
-        <Box sx={{ height: 64 }}>
+        <Box sx={{ height: 64, display: 'flex', alignItems: 'center' }}>
           {header}
         </Box>
       </Container>
