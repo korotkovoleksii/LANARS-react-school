@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import AlbumCard from 'modules/components/AlbumCard';
 import { useEffect } from 'react';
-import { clearPhotos } from 'shared/store/Photos/photoSlice';
 import { Status } from 'shared/helpers/statusRequestRTK';
 import { Link } from 'react-router-dom';
 import Endpoints from 'shared/constants/endpoints';
@@ -16,9 +15,7 @@ const Albums = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(retrieveAlbum([]));
-    return () => {
-      dispatch(clearPhotos());
-    };
+
   }, [dispatch]);
   return (
     <>
