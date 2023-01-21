@@ -34,7 +34,7 @@ const SelectPhotos = (): JSX.Element => {
           component="div"
           sx={{ color: colors.light.textPrimary, fontSize: 22, fontWeight: 400 }}
         >
-          Add to album
+          {!selectedPhotoId.length ? 'Add to album' : `Selected ${selectedPhotoId.length} photos`}
         </Typography>
       </Box>
       <Button variant="contained" disabled={!selectedPhotoId.length}>Done</Button>
