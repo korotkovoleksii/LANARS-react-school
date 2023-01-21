@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 // import SideMenu from 'modules/components/SideMenu';
 import { appTheme } from '../styles/appTheme';
 // import { colors } from 'styles/variables';
-import { MainPage } from 'modules/pages';
+import { MainPage, SelectPhotos } from 'modules/pages';
 import { AllPhoto, Albums, Album } from 'modules/pages';
 import Endpoints from 'shared/constants/endpoints';
 
@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
             <Route path={Endpoints.Albums} element={<Albums />} />
           </Route>
           <Route path={`${Endpoints.Album}/:id`} element={<Album />} />
-
+          <Route path={`${Endpoints.AddPhoto}/:id`} element={<SelectPhotos />} />
         </Routes>
       </ThemeProvider>
     </Box>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Box, Button, Container, IconButton, ImageList, ImageListItem, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import API from 'core/services/API';
 import { IPhoto } from 'shared/interfaces/photo.interface';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
@@ -11,6 +11,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { colors } from 'styles/variables';
 import { isPhoto } from 'shared/helpers/typeGuards';
+import Endpoints from 'shared/constants/endpoints';
 
 const Album = (): JSX.Element => {
   const { id } = useParams();
@@ -77,9 +78,16 @@ const Album = (): JSX.Element => {
                 borderColor: colors.light.iconNoPhotoYet,
               },
             }} />
-            <Button startIcon={<AddPhotoAlternateOutlinedIcon />}>ADD PHOTO</Button>
+
+            <Button
+              startIcon={<AddPhotoAlternateOutlinedIcon />}
+              component={Link}
+              to={`${Endpoints.AddPhoto}/${album.id}`}
+            >
+              ADD PHOTO
+            </Button>
           </Box >
-          {isLoading && (<Box>Loading...</Box>)}
+
           {hasError && <Box> {hasError}</Box>}
           {
             !isLoading && !hasError && !!data.length && (
@@ -116,7 +124,12 @@ const Album = (): JSX.Element => {
                   >
                     Album is empty
                   </Typography>
-                  <Button startIcon={<AddPhotoAlternateOutlinedIcon />}>ADD PHOTO</Button>
+                  <Button
+                    component={Link}
+                    startIcon={<AddPhotoAlternateOutlinedIcon />}
+                    to={`${Endpoints.AddPhoto}/${album.id}`}
+                  >ADD PHOTO
+                  </Button>
 
                 </Box >
               </Box>
