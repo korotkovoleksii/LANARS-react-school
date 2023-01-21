@@ -1,20 +1,10 @@
 import { Box, Container, Divider, Fab } from '@mui/material';
 import { colors } from 'styles/variables';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { ChangeEventHandler } from 'react';
+import { IPageTemplateProps } from 'shared/interfaces/selectPhotos.interface';
 
-interface IFABProp {
-  title: string;
-  handlerChange: ChangeEventHandler<HTMLInputElement>;
 
-}
 
-interface IPageTemplateProps {
-  header: JSX.Element;
-  body: JSX.Element;
-  fab?: IFABProp;
-
-}
 
 const PageTemplate = ({ header, body, fab }: IPageTemplateProps): JSX.Element => {
   return (
