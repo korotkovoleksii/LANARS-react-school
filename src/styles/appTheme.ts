@@ -28,8 +28,8 @@ export const appTheme = createTheme({
           borderRadius: '4px',
           backgroundColor: colors.light.fabBtnBG,
           color: colors.light.fabBtnText,
-          position: 'absolute',
-          right: '0px',
+          position: 'fixed',
+          right: '45px',
           bottom: '40px',
           ':hover': {
             backgroundColor: colors.light.fabBtnBGHover,
