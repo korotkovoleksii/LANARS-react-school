@@ -1,7 +1,7 @@
 import { isFulfilledAction, isRejectedAction, isPendingAction, rejectedAction, pendingAction, fulfilledAction } from './../helpers';
 import { IDataSlice } from './../../interfaces/slice.interface';
 import { IPhoto } from './../../interfaces/photo.interface';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import API from 'core/services/API';
 
@@ -52,6 +52,9 @@ const photoSlice = createSlice({
   initialState,
   reducers: {
     clearPhotos: () => initialState,
+    addPhoto: (state, action: PayloadAction<IPhoto>) => { state.data.push(action.payload); },
+    addPhotos: (state, action: PayloadAction<IPhoto[]>) => { state.data.push(...action.payload); },
+
   },
   extraReducers: (builder) => {
     builder
@@ -79,5 +82,5 @@ const photoSlice = createSlice({
   },
 });
 
-export const { clearPhotos } = photoSlice.actions;
+export const { clearPhotos, addPhoto, addPhotos } = photoSlice.actions;
 export default photoSlice.reducer;
