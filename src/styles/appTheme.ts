@@ -72,6 +72,13 @@ export const appTheme = createTheme({
         },
       },
     },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: colors.light.background,
+        },
+      },
+    },
 
   },
 });

@@ -114,7 +114,6 @@ const SelectPhotos = (): JSX.Element => {
   return (
     <Box>
       {<PageTemplate header={header} body={body} fab={fabProps}></PageTemplate>}
-      <Box> Select Photo for add to album {id}</Box>
     </Box >
   );
 };
