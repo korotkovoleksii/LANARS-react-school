@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, IconButton, ImageList, ImageListItem, Typography, Checkbox } from '@mui/material';
 import { Box } from '@mui/system';
 import PageTemplate from 'modules/components/PageTemplate';
@@ -5,19 +6,35 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { colors } from 'styles/variables';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { IFABProp } from 'shared/interfaces/selectPhotos.interface';
 import { getBase64StringFromDataURL, toBase64 } from 'shared/helpers/toolsBase64';
-import API from 'core/services/API';
+// import API from 'core/services/API';
 import { IPhoto } from 'shared/interfaces/photo.interface';
-import { addPhotos } from 'shared/store/Photos/photoSlice';
+import { addPhotos, createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
+import Endpoints from 'shared/constants/endpoints';
+import { retrieveAlbum, updateAlbum } from 'shared/store/Album/albumSlice';
+import { IAlbum } from 'shared/interfaces/album.interface';
 
 const SelectPhotos = (): JSX.Element => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedPhotoId, setSelectedPhotoId] = useState<number[]>([]);
-  const allPhotos = useAppSelector((state) => state.photo);
+  const [album, setAlbum] = useState<IAlbum>();
+  const [allPhotos, setAllPhotos] = useState<IPhoto[]>([]);
+
+  const handleClickDone = () => {
+    if (album) {
+      // add photo in album and check if photo exist in album
+      dispatch(updateAlbum({
+        ...album,
+        photos: [...album.photos, ...selectedPhotoId.filter((item) => !album.photos.includes(item))],
+      })).unwrap().then(() => {
+        navigate(`${Endpoints.Album}/${id}`);
+      });
+    }
+  };
 
   const onImageChange = (ev: ChangeEvent<HTMLInputElement>) => {
     if (ev.target.files) {
@@ -32,13 +49,13 @@ const SelectPhotos = (): JSX.Element => {
           size: item.size,
           type: item.type,
         };
-        const responsePhoto = await API.post('/api/photos', newPhoto) as IPhoto;
-        return responsePhoto;
+        return dispatch(createPhoto(newPhoto)).unwrap();
       });
 
       Promise.all(p).then(response => {
         setSelectedPhotoId([...selectedPhotoId, ...response.map(item => item.id)]);
-        dispatch(addPhotos(response));
+
+        setAllPhotos([...allPhotos, ...response]);
       });
 
     }
@@ -67,13 +84,13 @@ const SelectPhotos = (): JSX.Element => {
             selectedPhotoId.length === 1 ? `Selected ${selectedPhotoId.length} photo` : `Selected ${selectedPhotoId.length} photos`}
         </Typography>
       </Box>
-      <Button variant="contained" disabled={!selectedPhotoId.length}>Done</Button>
+      <Button variant="contained" disabled={!selectedPhotoId.length} onClick={handleClickDone}>Done</Button>
     </Box >
   );
   const body = (
     <Box>
       <ImageList cols={8} gap={8}>
-        {allPhotos.data.map((item) => (
+        {allPhotos.map((item) => (
           <ImageListItem key={item.id} onClick={() => {
             setSelectedPhotoId(selectedPhotoId.includes(item.id) ?
               selectedPhotoId.filter(itemId => itemId !== item.id) : [...selectedPhotoId, item.id]);
@@ -86,6 +103,13 @@ const SelectPhotos = (): JSX.Element => {
       </ImageList>
     </Box >
   );
+
+  useEffect(() => {
+    if (id) {
+      dispatch(retrieveAlbum([+id])).unwrap().then((res) => Array.isArray(res) ? setAlbum(res[0]) : setAlbum(res));
+      dispatch(retrievePhotos([])).unwrap().then((res) => Array.isArray(res) ? setAllPhotos(res) : setAllPhotos([res]));
+    }
+  }, []);
 
   return (
     <Box>

@@ -2,58 +2,43 @@
 import { Box, Button, Container, IconButton, ImageList, ImageListItem, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import API from 'core/services/API';
 import { IPhoto } from 'shared/interfaces/photo.interface';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
+import { useAppDispatch } from 'shared/hooks/redux-hooks';
 import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { colors } from 'styles/variables';
-import { isPhoto } from 'shared/helpers/typeGuards';
 import Endpoints from 'shared/constants/endpoints';
+import { IAlbum } from 'shared/interfaces/album.interface';
+import { retrievePhotos } from 'shared/store/Photos/photoSlice';
 
 const Album = (): JSX.Element => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [album, setAlbum] = useState<IAlbum>();
+  const [data, setData] = useState<IPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [data, setData] = useState<IPhoto[]>([]);
   const dispatch = useAppDispatch();
-
-  const album = id && useAppSelector((store) => store.album.data.find(item => item.id === +id));
 
   useEffect(() => {
     if (id) {
-      dispatch(retrieveAlbum([+id]));
+      dispatch(retrieveAlbum([+id])).unwrap().then((res) => Array.isArray(res) ? setAlbum(res[0]) : setAlbum(res));
     }
   }, []);
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        setIsLoading(true);
-        setHasError(false);
-        if (album) {
-          if (album.photos.length) {
-            const res = await API.get<IPhoto>(`/api/photos${`?ids=${album.photos.join()}`}`);
-            if (Array.isArray(res)) {
-              setData(res);
-              setIsLoading(false);
-            }
-            if (isPhoto(res)) {
-              setData([res]);
-              setIsLoading(false);
-            }
-          }
-        }
-      } catch (err) {
-        setHasError(true);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    };
-    loadData();
+    if (album) {
+      setIsLoading(true);
+      dispatch(retrievePhotos(album.photos))
+        .unwrap()
+        .then((res) => {
+          setData(Array.isArray(res) ? res : [res]);
+        })
+        .catch(() => setHasError(true))
+        .finally(() => setIsLoading(false));
+
+    }
   }, [album]);
 
   return (
@@ -67,7 +52,7 @@ const Album = (): JSX.Element => {
 
           }}
           >
-            <IconButton sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+            <IconButton sx={{ mr: 2 }} onClick={() => navigate(Endpoints.Albums)}>
               <ArrowBackIcon />
             </IconButton >
 
