@@ -1,5 +1,6 @@
 
-import { Button, IconButton, ImageList, ImageListItem, Typography, Checkbox } from '@mui/material';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Button, IconButton, ImageList, ImageListItem, Typography, Checkbox, ImageListItemBar } from '@mui/material';
 import { Box } from '@mui/system';
 import PageTemplate from 'modules/components/PageTemplate';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -97,7 +98,16 @@ const SelectPhotos = (): JSX.Element => {
               selectedPhotoId.filter(itemId => itemId !== item.id) : [...selectedPhotoId, item.id]);
           }}
           >
-            <Checkbox checked={selectedPhotoId.includes(item.id)} sx={{ position: 'absolute', right: 0 }} />
+            {/* <Checkbox checked={selectedPhotoId.includes(item.id)} sx={{ position: 'absolute', right: 0 }} /> */}
+            <ImageListItemBar
+              sx={{
+                backgroundColor: 'transparent',
+              }}
+              position="top"
+              actionIcon={
+                <Checkbox checked={selectedPhotoId.includes(item.id)} />
+              }
+              actionPosition="right" />
             <img src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
           </ImageListItem>
         ))}
