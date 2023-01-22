@@ -22,7 +22,14 @@ const AllPhoto = (): JSX.Element => {
       arr.forEach(async (item) => {
         const result = await toBase64(item);
         const base64 = getBase64StringFromDataURL(result as string);
-        dispatch(createPhoto({ date: item.lastModified, description: 'def', image: base64, size: item.size, type: item.type }));
+        dispatch(createPhoto({
+          date: item.lastModified,
+          description: 'def',
+          image: base64,
+          size: item.size,
+          type: item.type,
+          isFavorite: false,
+        }));
       });
     }
   };

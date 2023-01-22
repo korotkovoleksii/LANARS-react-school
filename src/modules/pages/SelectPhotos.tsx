@@ -48,6 +48,7 @@ const SelectPhotos = (): JSX.Element => {
           image: base64,
           size: item.size,
           type: item.type,
+          isFavorite: false,
         };
         return dispatch(createPhoto(newPhoto)).unwrap();
       });
