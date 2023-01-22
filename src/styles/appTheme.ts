@@ -64,6 +64,14 @@ export const appTheme = createTheme({
     MuiListItemButton: {
       styleOverrides: {},
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+          color: colors.light.primary,
+        },
+      },
+    },
 
   },
 });

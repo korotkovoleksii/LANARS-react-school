@@ -1,13 +1,15 @@
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
-import { Typography, Box, Grid } from '@mui/material';
+import { Typography, Box, Grid, Link } from '@mui/material';
 import { colors } from 'styles/variables';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { retrieveAlbum } from 'shared/store/Album/albumSlice';
 import AlbumCard from 'modules/components/AlbumCard';
 import { useEffect } from 'react';
 import { Status } from 'shared/helpers/statusRequestRTK';
-import { Link } from 'react-router-dom';
+
 import Endpoints from 'shared/constants/endpoints';
+import { Link as RouterLink } from 'react-router-dom';
+
 
 const Albums = (): JSX.Element => {
   const albums = useAppSelector((store) => store.album);
@@ -19,6 +21,7 @@ const Albums = (): JSX.Element => {
   }, [dispatch]);
   return (
     <>
+
       {albums.status === Status.Finished ? (
         albums.data.length === 0 ? (
           <Box
@@ -48,7 +51,7 @@ const Albums = (): JSX.Element => {
             {albums.data.map((item) => {
               return (
                 <Box key={item.id}>
-                  <Link to={`${Endpoints.Album}/${item.id}`}>
+                  <Link component={RouterLink} to={`${Endpoints.Album}/${item.id}`}>
                     <Grid item>
 
                       <AlbumCard title={item.title} idPhoto={item.photos[0]} countPhotos={item.photos.length} />
