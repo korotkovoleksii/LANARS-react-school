@@ -1,7 +1,9 @@
-import { Box, Fab, Typography, ImageList, ImageListItem } from '@mui/material';
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Box, Fab, Typography, ImageList, ImageListItem, Checkbox, ImageListItemBar } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from 'shared/hooks/redux-hooks';
 import { colors } from 'styles/variables';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
@@ -41,7 +43,28 @@ const AllPhoto = (): JSX.Element => {
           <Box>
             <ImageList gap={8} cols={6}>
               {allPhotos.data.map((item) => (
-                <ImageListItem key={item.id}>
+                <ImageListItem key={item.id} sx={{
+                  '&:hover': {
+                    '& .MuiImageListItemBar-root': {
+                      display: 'flex',
+                    },
+
+                  },
+                }}
+                >
+
+                  <ImageListItemBar
+                    sx={{
+                      backgroundColor: 'transparent',
+                      display: 'none',
+                    }}
+                    position="top"
+                    actionIcon={
+                      <Checkbox
+                      />
+                    }
+                    actionPosition="right" />
+
                   <img src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
                 </ImageListItem>
               ))}
