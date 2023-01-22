@@ -9,13 +9,16 @@ import { colors } from 'styles/variables';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { Status } from 'shared/helpers/statusRequestRTK';
 import { toBase64, getBase64StringFromDataURL } from 'shared/helpers/toolsBase64';
+import { addToSelectedPhotos, removeFromSelectedPhotos, toggleIsShow } from 'shared/store/SelectedPhotos/selectedPhotosSlice';
 
 const AllPhoto = (): JSX.Element => {
   const allPhotos = useAppSelector((state) => state.photo);
+  const selectedPhoto = useAppSelector((state) => state.selectedPhotos.data);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(retrievePhotos([]));
+
   }, [dispatch]);
 
   const onImageChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -52,16 +55,18 @@ const AllPhoto = (): JSX.Element => {
                   },
                 }}
                 >
-
                   <ImageListItemBar
                     sx={{
                       backgroundColor: 'transparent',
-                      display: 'none',
+                      display: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'flex' : 'none',
                     }}
                     position="top"
                     actionIcon={
-                      <Checkbox
-                      />
+                      <Checkbox checked={!!selectedPhoto.find((selectedItem) => selectedItem.id === item.id)} onClick={() => {
+                        dispatch(toggleIsShow(true));
+                        dispatch(selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ?
+                          removeFromSelectedPhotos(item) : addToSelectedPhotos(item));
+                      }} />
                     }
                     actionPosition="right" />
 

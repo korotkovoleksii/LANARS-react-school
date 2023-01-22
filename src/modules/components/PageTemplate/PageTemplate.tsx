@@ -7,7 +7,7 @@ const PageTemplate = ({ header, body, fab }: IPageTemplateProps): JSX.Element =>
   return (
     <Box>
       <Container disableGutters>
-        <Box sx={{ height: 64, display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ height: 64, display: 'flex', alignItems: 'center', width: '100%' }}>
           {header}
         </Box>
       </Container>
