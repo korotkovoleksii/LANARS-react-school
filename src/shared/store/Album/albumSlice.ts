@@ -10,7 +10,7 @@ export const retrieveAlbum = createAsyncThunk(
   async (ids: number[], { rejectWithValue }) => {
     try {
       const res = await API.get(`/api/albums${ids.length > 0 ? `?ids=${ids.join()}` : ''}`);
-      return Array.isArray(res)? res as IAlbum[]:res as IAlbum;
+      return Array.isArray(res) ? res as IAlbum[] : res as IAlbum;
     } catch (error) {
       return rejectWithValue(error);
     }
