@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Button, IconButton, ImageList, ImageListItem, Typography, Checkbox } from '@mui/material';
 import { Box } from '@mui/system';
 import PageTemplate from 'modules/components/PageTemplate';
 import { useNavigate, useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
+import { useAppDispatch } from 'shared/hooks/redux-hooks';
 import { colors } from 'styles/variables';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IFABProp } from 'shared/interfaces/selectPhotos.interface';
 import { getBase64StringFromDataURL, toBase64 } from 'shared/helpers/toolsBase64';
 // import API from 'core/services/API';
 import { IPhoto } from 'shared/interfaces/photo.interface';
-import { addPhotos, createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
+import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import Endpoints from 'shared/constants/endpoints';
 import { retrieveAlbum, updateAlbum } from 'shared/store/Album/albumSlice';
 import { IAlbum } from 'shared/interfaces/album.interface';
