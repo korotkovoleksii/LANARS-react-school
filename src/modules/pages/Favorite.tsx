@@ -1,9 +1,9 @@
-
-import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Status } from 'shared/helpers/statusRequestRTK';
 import { useAppSelector } from 'shared/hooks/redux-hooks';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { colors } from 'styles/variables';
+import ShowPhotosGrid from 'modules/components/ShowPhotosGrid';
 
 const Favorite = (): JSX.Element => {
 
@@ -18,13 +18,7 @@ const Favorite = (): JSX.Element => {
       {favoritePhoto.status === Status.Finished ? (
         favoritePhoto.data.length !== 0 ? (
           <Box>
-            <ImageList gap={8} cols={6}>
-              {favoritePhoto.data.map((item) => (
-                <ImageListItem key={item.id}>
-                  <img src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
-                </ImageListItem>
-              ))}
-            </ImageList>
+            <ShowPhotosGrid photos={favoritePhoto.data} ></ShowPhotosGrid>
           </Box>
         ) : (
           <Box
