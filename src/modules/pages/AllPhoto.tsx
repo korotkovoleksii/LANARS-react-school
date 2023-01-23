@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Box, Fab, Typography, ImageList, ImageListItem, Checkbox, ImageListItemBar } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from 'shared/hooks/redux-hooks';
 import { colors } from 'styles/variables';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';

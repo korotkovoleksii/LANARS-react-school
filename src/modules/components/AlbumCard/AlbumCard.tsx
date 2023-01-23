@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Box, Card, Typography, CardHeader, IconButton, CardMedia } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Box, Card, Typography, CardHeader, IconButton, CardMedia } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import { colors } from 'styles/variables';
@@ -14,8 +14,6 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
-
     setIsLoading(true);
     API.get<IPhoto>(`/api/photos?ids=${idPhoto}`)
       .then((res) => {
@@ -27,7 +25,6 @@ const AlbumCard = ({ title, idPhoto, countPhotos }: { title: string; idPhoto: nu
       })
       .catch(err => setError(err));
   }, []);
-
 
   return (
     <Card

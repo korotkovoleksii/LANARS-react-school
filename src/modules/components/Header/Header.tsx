@@ -1,7 +1,7 @@
 import { Typography, Box, Stack, IconButton } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import CloseIcon from '@mui/icons-material/Close';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import logo from '../../../assets/icons/logo.svg';
 import { colors } from 'styles/variables';
 import { clearSelectedPhotos, toggleIsShow } from 'shared/store/SelectedPhotos/selectedPhotosSlice';

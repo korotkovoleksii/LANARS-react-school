@@ -1,7 +1,7 @@
 import { Box, Container, Divider, Fab } from '@mui/material';
-import { colors } from 'styles/variables';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { IPageTemplateProps } from 'shared/interfaces/selectPhotos.interface';
+import { colors } from 'styles/variables';
 
 const PageTemplate = ({ header, body, fab }: IPageTemplateProps): JSX.Element => {
   return (

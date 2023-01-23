@@ -12,8 +12,6 @@ const Favorite = (): JSX.Element => {
     data: state.photo.data.filter((item) => (item.isFavorite)),
     status: state.photo.status,
   }));
-  // eslint-disable-next-line no-console
-  console.log(favoritePhoto);
 
   return (
     <>
