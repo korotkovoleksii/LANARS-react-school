@@ -15,7 +15,7 @@ export const appTheme = createTheme({
     fontFamily: ['Saira', 'sans-serif'].join(','),
     fontSize: 16,
 
-    body1: { fontWeight: 500, fontSize:16 },
+    body1: { fontWeight: 500, fontSize: 16 },
     subtitle1: { fontSize: 16 },
     subtitle2: {
       fontWeight: 600,
@@ -28,8 +28,8 @@ export const appTheme = createTheme({
           borderRadius: '4px',
           backgroundColor: colors.light.fabBtnBG,
           color: colors.light.fabBtnText,
-          position: 'absolute',
-          right: '0px',
+          position: 'fixed',
+          right: '45px',
           bottom: '40px',
           ':hover': {
             backgroundColor: colors.light.fabBtnBGHover,
@@ -50,17 +50,34 @@ export const appTheme = createTheme({
     },
     MuiImageListItem: {
       styleOverrides: {
+
         root: {
           '& .MuiImageListItem-img': {
             borderRadius: '8px',
             height: '142px',
-            width: '142px',
+            maxWidth: '142px',
+
           },
         },
       },
     },
     MuiListItemButton: {
       styleOverrides: {},
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+          color: colors.light.primary,
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: colors.light.background,
+        },
+      },
     },
 
   },

@@ -1,5 +1,6 @@
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import Endpoints from 'shared/constants/endpoints';
 
 export const mainSideMenuItem = [
@@ -15,10 +16,10 @@ export const mainSideMenuItem = [
     label: 'Albums',
     route: Endpoints.Albums,
   },
-  // {
-  //   id: 2,
-  //   icon: <StarOutlineOutlinedIcon />,
-  //   label: 'Favorites',
-  //   route: 'favorites',
-  // },
+  {
+    id: 2,
+    icon: <StarBorderOutlinedIcon />,
+    label: 'Favorites',
+    route: Endpoints.Favorites,
+  },
 ];
