@@ -1,10 +1,11 @@
-import { Fab } from '@mui/material';
+import { Box, Fab } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { toBase64, getBase64StringFromDataURL } from 'shared/helpers/toolsBase64';
 import ShowPhotosGrid from 'modules/components/ShowPhotosGrid';
+import { Status } from 'shared/helpers/statusRequestRTK';
 
 const AllPhoto = (): JSX.Element => {
 
@@ -35,7 +36,8 @@ const AllPhoto = (): JSX.Element => {
 
   return (
     <>
-      <ShowPhotosGrid photos={allPhoto}></ShowPhotosGrid>
+
+      {allPhoto.status === Status.Finished ? (<ShowPhotosGrid photos={allPhoto.data}></ShowPhotosGrid>) : (<Box></Box>)}
       <Fab variant="extended" size="medium" component="label">
         <FileUploadOutlinedIcon sx={{ mr: 1 }} />
         Upload photo
