@@ -37,7 +37,7 @@ const StyledIconButton = styled(IconButton)({
 
 });
 
-const ShowPhotosGrid = ({ photos, cols = 6 }: { photos: IPhoto[]; cols?: number }): JSX.Element => {
+const ShowPhotosGrid = ({ photos, cols = 6, selected = true }: { photos: IPhoto[]; cols?: number; selected?: boolean }): JSX.Element => {
   const selectedPhoto = useAppSelector((state) => state.selectedPhotos.data);
   const [isShowPhoto, setIsShowPhoto] = useState(false);
   const [selectedIndexPhoto, setSelectedIndexPhoto] = useState<number>(0);
@@ -67,7 +67,7 @@ const ShowPhotosGrid = ({ photos, cols = 6 }: { photos: IPhoto[]; cols?: number 
 
                   }}
                   >
-                    <Checkbox
+                    {selected && (<Checkbox
                       sx={{
                         backgroundColor: 'transparent',
                         zIndex: 1,
@@ -81,7 +81,8 @@ const ShowPhotosGrid = ({ photos, cols = 6 }: { photos: IPhoto[]; cols?: number 
                         dispatch(toggleIsShow(true));
                         dispatch(selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ?
                           removeFromSelectedPhotos(item) : addToSelectedPhotos(item));
-                      }} />
+                      }} />)}
+
                     <img
                       onClick={() => {
                         setSelectedIndexPhoto(index);
