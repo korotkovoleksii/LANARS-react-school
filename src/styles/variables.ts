@@ -17,6 +17,7 @@ export const colors = {
     iconWhite: '#FFF',
     bgShowPhoto: '#000000',
     navigateBtn: '#3F4A53',
+    inputBorder: '#E5EDF2',
   },
   dark: {},
 };

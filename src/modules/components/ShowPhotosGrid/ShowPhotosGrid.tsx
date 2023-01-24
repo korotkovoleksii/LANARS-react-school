@@ -8,7 +8,7 @@ import {
   IconButton,
   ImageList,
   ImageListItem,
-  ImageListItemBar,
+  // ImageListItemBar,
   styled,
   Typography,
 } from '@mui/material';
@@ -51,38 +51,45 @@ const ShowPhotosGrid = ({ photos, cols = 6 }: { photos: IPhoto[]; cols?: number 
             <Box>
               <ImageList gap={8} cols={cols}>
                 {photos.map((item, index) => (
+
                   <ImageListItem key={item.id} sx={{
-                    cursor: 'pointer',
+                    backgroundColor: '#1D8CF41F',
+                    '& .MuiImageListItem-img': {
+                      transform: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'scale(77%, 77%)' : 'none',
+                      transition: 'transform 0.05s',
+                    },
                     '&:hover': {
-                      '& .MuiImageListItemBar-root': {
-                        display: 'flex',
+                      '& .MuiCheckbox-root': {
+                        display: 'block',
                       },
                     },
+                    cursor: 'pointer',
+
                   }}
                   >
-                    <ImageListItemBar
+                    <Checkbox
                       sx={{
                         backgroundColor: 'transparent',
-                        display: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'flex' : 'none',
-
+                        zIndex: 1,
+                        right: 0,
+                        top: 0,
+                        position: 'absolute',
+                        display: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'block' : 'none',
                       }}
-                      position="top"
-                      actionIcon={
-                        <Checkbox checked={!!selectedPhoto.find((selectedItem) => selectedItem.id === item.id)} onClick={() => {
-                          dispatch(toggleIsShow(true));
-                          dispatch(selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ?
-                            removeFromSelectedPhotos(item) : addToSelectedPhotos(item));
-                        }} />
-                      }
-                      actionPosition="right" />
+                      checked={!!selectedPhoto.find((selectedItem) => selectedItem.id === item.id)}
+                      onClick={() => {
+                        dispatch(toggleIsShow(true));
+                        dispatch(selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ?
+                          removeFromSelectedPhotos(item) : addToSelectedPhotos(item));
+                      }} />
                     <img
                       onClick={() => {
                         setSelectedIndexPhoto(index);
                         setIsShowPhoto(true);
                       }}
                       src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
-                  </ImageListItem>
-                ))}
+
+                  </ImageListItem>))}
               </ImageList>
             </Box>
 
@@ -99,7 +106,6 @@ const ShowPhotosGrid = ({ photos, cols = 6 }: { photos: IPhoto[]; cols?: number 
               }}
               >
                 <Container disableGutters>
-
                   <Box sx={{
                     display: 'flex',
                     zIndex: 1,
