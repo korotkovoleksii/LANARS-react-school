@@ -37,7 +37,6 @@ const Album = (): JSX.Element => {
         })
         .catch(() => setHasError(true))
         .finally(() => setIsLoading(false));
-
     }
   }, [album]);
 
@@ -59,8 +58,8 @@ const Album = (): JSX.Element => {
             <TextField variant="standard" value={album && album.title} sx={{
               width: '769px',
               mr: '120px',
-              '& :before': {
-                borderColor: colors.light.iconNoPhotoYet,
+              '& .MuiInput-underline:before': {
+                borderBottomColor: colors.light.inputBorder,
               },
             }} />
 

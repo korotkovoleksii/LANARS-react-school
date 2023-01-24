@@ -6,6 +6,7 @@ import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { toBase64, getBase64StringFromDataURL } from 'shared/helpers/toolsBase64';
 import ShowPhotosGrid from 'modules/components/ShowPhotosGrid';
 import { Status } from 'shared/helpers/statusRequestRTK';
+import { clearSelectedPhotos } from 'shared/store/SelectedPhotos/selectedPhotosSlice';
 
 const AllPhoto = (): JSX.Element => {
 
@@ -13,7 +14,9 @@ const AllPhoto = (): JSX.Element => {
   const allPhoto = useAppSelector((state) => state.photo);
   useEffect(() => {
     dispatch(retrievePhotos([]));
-
+    return () => {
+      dispatch(clearSelectedPhotos());
+    };
   }, [dispatch]);
 
   const onImageChange = (ev: ChangeEvent<HTMLInputElement>) => {
