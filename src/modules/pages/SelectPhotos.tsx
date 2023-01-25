@@ -76,7 +76,7 @@ const SelectPhotos = (): JSX.Element => {
     }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconButton onClick={() => navigate(-1)}>
+        <IconButton onClick={() => navigate(`${Endpoints.Album}/${id}`)}>
           <CloseIcon />
         </IconButton >
         <Typography
