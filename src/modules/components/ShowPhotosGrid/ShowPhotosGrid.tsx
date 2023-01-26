@@ -12,6 +12,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
+
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -37,7 +38,11 @@ const StyledIconButton = styled(IconButton)({
 
 });
 
-const ShowPhotosGrid = ({ photos, cols = 6, selected = true }: { photos: IPhoto[]; cols?: number; selected?: boolean }): JSX.Element => {
+const ShowPhotosGrid = ({
+  photos,
+  cols = 6,
+  selected = true,
+  isShowFavoriteIcon = false }: { photos: IPhoto[]; cols?: number; selected?: boolean; isShowFavoriteIcon?: boolean }): JSX.Element => {
   const selectedPhoto = useAppSelector((state) => state.selectedPhotos.data);
   const [isShowPhoto, setIsShowPhoto] = useState(false);
   const [selectedIndexPhoto, setSelectedIndexPhoto] = useState<number>(0);
@@ -58,11 +63,13 @@ const ShowPhotosGrid = ({ photos, cols = 6, selected = true }: { photos: IPhoto[
                       transform: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'scale(77%, 77%)' : 'none',
                       transition: 'transform 0.05s',
                     },
+
                     '&:hover': {
                       '& .MuiCheckbox-root': {
                         display: 'block',
                       },
                     },
+
                     cursor: 'pointer',
 
                   }}
@@ -89,6 +96,16 @@ const ShowPhotosGrid = ({ photos, cols = 6, selected = true }: { photos: IPhoto[
                         setIsShowPhoto(true);
                       }}
                       src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
+                    {isShowFavoriteIcon &&
+                      !selectedPhoto.find((itemSelected) => itemSelected.id === item.id) &&
+                      item.isFavorite &&
+                      <StarIcon sx={{
+                        position: 'absolute',
+                        left: '10px',
+                        bottom: '15px',
+                        color: colors.light.iconWhite,
+                        pointerEvents: 'none',
+                      }} />}
 
                   </ImageListItem>))}
               </ImageList>

@@ -18,7 +18,7 @@ const Favorite = (): JSX.Element => {
       {favoritePhoto.status === Status.Finished ? (
         favoritePhoto.data.length !== 0 ? (
           <Box>
-            <ShowPhotosGrid photos={favoritePhoto.data} selected={false}></ShowPhotosGrid>
+            <ShowPhotosGrid photos={favoritePhoto.data} selected={true} isShowFavoriteIcon={true}></ShowPhotosGrid>
           </Box>
         ) : (
           <Box
