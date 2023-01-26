@@ -1,9 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import { Status } from 'shared/helpers/statusRequestRTK';
-import { useAppSelector } from 'shared/hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from 'shared/hooks/redux-hooks';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { colors } from 'styles/variables';
 import ShowPhotosGrid from 'modules/components/ShowPhotosGrid';
+import { useEffect } from 'react';
+import { retrievePhotos } from 'shared/store/Photos/photoSlice';
 
 const Favorite = (): JSX.Element => {
 
@@ -12,6 +14,11 @@ const Favorite = (): JSX.Element => {
     data: state.photo.data.filter((item) => (item.isFavorite)),
     status: state.photo.status,
   }));
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(retrievePhotos([]));
+  }, []);
 
   return (
     <>
