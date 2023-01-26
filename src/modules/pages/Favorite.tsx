@@ -38,9 +38,9 @@ const Favorite = (): JSX.Element => {
             <Typography variant="subtitle1" component={'div'} sx={{ textAlign: 'center', color: colors.light.textSecondary }}>
               There are no photos yet. Please <br /> click{' '}
               <Typography variant="subtitle2" component="span">
-                Upload photo
+                Star Icon
               </Typography>{' '}
-              to add
+              to add during the view
             </Typography>
           </Box>
         )
