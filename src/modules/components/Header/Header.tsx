@@ -11,12 +11,9 @@ import { useLocation } from 'react-router-dom';
 import Endpoints from 'shared/constants/endpoints';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-
 const Header = (): JSX.Element => {
   const { data: selectedPhoto, isShow: isSelectedInfoHederShow } = useAppSelector((state) => state.selectedPhotos);
   const { pathname } = useLocation();
-  // eslint-disable-next-line no-console
-  console.log(location);
   const dispatch = useAppDispatch();
   const ordinaryHeader = (
     <Stack direction="row" spacing={2} alignItems={'center'} flexGrow={1}>

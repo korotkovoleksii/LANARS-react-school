@@ -100,7 +100,6 @@ const SelectPhotos = (): JSX.Element => {
               selectedPhotoId.filter(itemId => itemId !== item.id) : [...selectedPhotoId, item.id]);
           }}
           >
-            {/* <Checkbox checked={selectedPhotoId.includes(item.id)} sx={{ position: 'absolute', right: 0 }} /> */}
             <ImageListItemBar
               sx={{
                 backgroundColor: 'transparent',

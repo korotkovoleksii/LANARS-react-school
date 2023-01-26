@@ -8,7 +8,6 @@ import {
   IconButton,
   ImageList,
   ImageListItem,
-  // ImageListItemBar,
   styled,
   Typography,
 } from '@mui/material';
