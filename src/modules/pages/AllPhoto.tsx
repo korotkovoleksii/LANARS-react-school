@@ -4,7 +4,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { ChangeEvent, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from 'shared/hooks/redux-hooks';
 import { colors } from 'styles/variables';
-import { clearPhotos, createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
+import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { Status } from 'shared/helpers/statusRequestRTK';
 import { toBase64, getBase64StringFromDataURL } from 'shared/helpers/toolsBase64';
 
@@ -14,9 +14,6 @@ const AllPhoto = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(retrievePhotos([]));
-    return () => {
-      dispatch(clearPhotos());
-    };
   }, [dispatch]);
 
   const onImageChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +54,7 @@ const AllPhoto = (): JSX.Element => {
               sx={{
                 fontSize: 160,
                 color: colors.light.iconNoPhotoYet,
-              }}
-            />
+              }} />
             <Typography variant="subtitle1" component={'div'} sx={{ textAlign: 'center', color: colors.light.textSecondary }}>
               There are no photos yet. Please <br /> click{' '}
               <Typography variant="subtitle2" component="span">
