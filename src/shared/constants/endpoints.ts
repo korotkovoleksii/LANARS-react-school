@@ -3,6 +3,7 @@ enum Endpoints {
   Albums = '/albums',
   Album = '/album',
   AddPhoto = '/add-photo',
+  Favorites = '/favorites',
 }
 
 export default Endpoints;

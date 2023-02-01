@@ -1,4 +1,6 @@
-import { Box, Fab, Typography, ImageList, ImageListItem } from '@mui/material';
+/* eslint-disable @typescript-eslint/naming-convention */
+
+import { Box, Fab, Typography, ImageList, ImageListItem, Checkbox, ImageListItemBar } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { ChangeEvent, useEffect } from 'react';
@@ -7,13 +9,16 @@ import { colors } from 'styles/variables';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import { Status } from 'shared/helpers/statusRequestRTK';
 import { toBase64, getBase64StringFromDataURL } from 'shared/helpers/toolsBase64';
+import { addToSelectedPhotos, removeFromSelectedPhotos, toggleIsShow } from 'shared/store/SelectedPhotos/selectedPhotosSlice';
 
 const AllPhoto = (): JSX.Element => {
   const allPhotos = useAppSelector((state) => state.photo);
+  const selectedPhoto = useAppSelector((state) => state.selectedPhotos.data);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(retrievePhotos([]));
+
   }, [dispatch]);
 
   const onImageChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +27,14 @@ const AllPhoto = (): JSX.Element => {
       arr.forEach(async (item) => {
         const result = await toBase64(item);
         const base64 = getBase64StringFromDataURL(result as string);
-        dispatch(createPhoto({ date: item.lastModified, description: 'def', image: base64, size: item.size, type: item.type }));
+        dispatch(createPhoto({
+          date: item.lastModified,
+          description: 'def',
+          image: base64,
+          size: item.size,
+          type: item.type,
+          isFavorite: false,
+        }));
       });
     }
   };
@@ -34,7 +46,30 @@ const AllPhoto = (): JSX.Element => {
           <Box>
             <ImageList gap={8} cols={6}>
               {allPhotos.data.map((item) => (
-                <ImageListItem key={item.id}>
+                <ImageListItem key={item.id} sx={{
+                  '&:hover': {
+                    '& .MuiImageListItemBar-root': {
+                      display: 'flex',
+                    },
+
+                  },
+                }}
+                >
+                  <ImageListItemBar
+                    sx={{
+                      backgroundColor: 'transparent',
+                      display: selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ? 'flex' : 'none',
+                    }}
+                    position="top"
+                    actionIcon={
+                      <Checkbox checked={!!selectedPhoto.find((selectedItem) => selectedItem.id === item.id)} onClick={() => {
+                        dispatch(toggleIsShow(true));
+                        dispatch(selectedPhoto.find((selectedItem) => selectedItem.id === item.id) ?
+                          removeFromSelectedPhotos(item) : addToSelectedPhotos(item));
+                      }} />
+                    }
+                    actionPosition="right" />
+
                   <img src={`data:image/jpeg;base64,${item.image}`} alt={item.description} />
                 </ImageListItem>
               ))}

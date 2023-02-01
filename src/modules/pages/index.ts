@@ -6,3 +6,4 @@ export { Albums } from './Albums';
 export { Album } from './Album';
 export { MainPage } from './MainPage';
 export { SelectPhotos } from './SelectPhotos';
+export { Favorite } from './Favorite';
