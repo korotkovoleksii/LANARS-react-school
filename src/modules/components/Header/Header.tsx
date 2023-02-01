@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Typography, Box, Stack, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
@@ -6,9 +7,13 @@ import logo from '../../../assets/icons/logo.svg';
 import { colors } from 'styles/variables';
 import { clearSelectedPhotos, toggleIsShow } from 'shared/store/SelectedPhotos/selectedPhotosSlice';
 import { updatePhoto } from 'shared/store/Photos/photoSlice';
+import { useLocation } from 'react-router-dom';
+import Endpoints from 'shared/constants/endpoints';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Header = (): JSX.Element => {
   const { data: selectedPhoto, isShow: isSelectedInfoHederShow } = useAppSelector((state) => state.selectedPhotos);
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const ordinaryHeader = (
     <Stack direction="row" spacing={2} alignItems={'center'} flexGrow={1}>
@@ -45,22 +50,45 @@ const Header = (): JSX.Element => {
             selectedPhoto.length === 1 ? `Selected ${selectedPhoto.length} photo` : `Selected ${selectedPhoto.length} photos`}
         </Typography>
       </Box>
-
-      <IconButton
-        sx={{
-          color: colors.light.fabBtnBG,
-        }}
-
-        disabled={!selectedPhoto.length}
-        onClick={() => {
-          selectedPhoto.forEach((item) => (dispatch(updatePhoto({ ...item, isFavorite: true }))));
-          dispatch(clearSelectedPhotos());
-          dispatch(toggleIsShow(false));
-        }
-        }
+      <Box sx={{
+        display: 'flex',
+        gap: '27px',
+      }}
       >
-        <StarBorderOutlinedIcon />
-      </IconButton>
+        <IconButton
+          sx={{
+            color: colors.light.fabBtnBG,
+          }}
+          disabled={!selectedPhoto.length}
+          onClick={() => {
+            selectedPhoto.forEach((item) => (dispatch(updatePhoto({ ...item, isFavorite: true }))));
+            dispatch(clearSelectedPhotos());
+            dispatch(toggleIsShow(false));
+          }
+          }
+        >
+          <StarBorderOutlinedIcon />
+        </IconButton >
+        {pathname === Endpoints.Favorites &&
+          (
+            <IconButton
+              disabled={!selectedPhoto.length}
+              onClick={() => {
+                selectedPhoto.forEach((item) => (dispatch(updatePhoto({ ...item, isFavorite: false }))));
+                dispatch(clearSelectedPhotos());
+                dispatch(toggleIsShow(false));
+              }}
+              sx={{
+                color: colors.light.fabBtnBG,
+              }}
+
+            >
+              <DeleteOutlineIcon />
+            </IconButton>
+          )
+        }
+      </Box>
+
     </Box >);
 
   return (

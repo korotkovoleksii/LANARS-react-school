@@ -14,6 +14,10 @@ export const colors = {
     fabBtnBGDisabled: '#0000001F',
     fabBtnTextDisabled: '#00000042',
     iconNoPhotoYet: '#E5EDF2',
+    iconWhite: '#FFF',
+    bgShowPhoto: '#000000',
+    navigateBtn: '#3F4A53',
+    inputBorder: '#E5EDF2',
   },
   dark: {},
 };

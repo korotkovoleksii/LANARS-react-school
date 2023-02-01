@@ -1,5 +1,4 @@
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Button, IconButton, ImageList, ImageListItem, Typography, Checkbox, ImageListItemBar } from '@mui/material';
 import { Box } from '@mui/system';
 import PageTemplate from 'modules/components/PageTemplate';
@@ -10,7 +9,6 @@ import { colors } from 'styles/variables';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IFABProp } from 'shared/interfaces/selectPhotos.interface';
 import { getBase64StringFromDataURL, toBase64 } from 'shared/helpers/toolsBase64';
-// import API from 'core/services/API';
 import { IPhoto } from 'shared/interfaces/photo.interface';
 import { createPhoto, retrievePhotos } from 'shared/store/Photos/photoSlice';
 import Endpoints from 'shared/constants/endpoints';
@@ -54,12 +52,16 @@ const SelectPhotos = (): JSX.Element => {
         return dispatch(createPhoto(newPhoto)).unwrap();
       });
 
-      Promise.all(p).then(response => {
-        setSelectedPhotoId([...selectedPhotoId, ...response.map(item => item.id)]);
-
-        setAllPhotos([...allPhotos, ...response]);
+      Promise.allSettled(p).then((result) => {
+        const resultPhoto: IPhoto[] = [];
+        result.forEach((item) => {
+          if (item.status === 'fulfilled') {
+            resultPhoto.push(item.value);
+          }
+        });
+        setSelectedPhotoId([...selectedPhotoId, ...resultPhoto.map(item => item.id)]);
+        setAllPhotos([...allPhotos, ...resultPhoto]);
       });
-
     }
   };
 
@@ -74,7 +76,7 @@ const SelectPhotos = (): JSX.Element => {
     }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconButton onClick={() => navigate(-1)}>
+        <IconButton onClick={() => navigate(`${Endpoints.Album}/${id}`)}>
           <CloseIcon />
         </IconButton >
         <Typography
@@ -98,7 +100,6 @@ const SelectPhotos = (): JSX.Element => {
               selectedPhotoId.filter(itemId => itemId !== item.id) : [...selectedPhotoId, item.id]);
           }}
           >
-            {/* <Checkbox checked={selectedPhotoId.includes(item.id)} sx={{ position: 'absolute', right: 0 }} /> */}
             <ImageListItemBar
               sx={{
                 backgroundColor: 'transparent',
