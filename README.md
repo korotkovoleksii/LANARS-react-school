@@ -1,36 +1,31 @@
-# LANARS react school
-#### This is a base for a future photo album project
+# Gallery App
 
-## Project resources:
+Welcome to the Gallery App, a small but powerful app that allows you to showcase your memories in a sleek and stylish way.
 
-## Help services:
+## Features
 
-## Project structure: 
-``` 
-.
-├── src
-│   ├── assets             # fonts, images and icons
-│   ├── core               # A core of this project. Includes back-end logic
-│   │   ├── services       # back-end logic
-│   │   ├── App.scss
-│   │   └── App.tsx
-│   ├── shared    
-│   │   ├── constants       
-│   │   ├── helpers        # helper functions and utils
-│   │   ├── hoc            # Higher Order Components
-│   │   ├── hooks          # For custom hooks
-│   │   ├── interfaces
-│   │   └── store          # Redux store, reducers and actions
-│   └── ...
-│   
-├── node_modules
-├── package.json           # needed libraries
-├── .vanilla.eslintr.json  # basic js linter configuration
-├── .eslintr.json          # react and TS linter configuration
-└── tsconfig.json          # ts definition
-```
+- Easily add your own photos
+- Customize your gallery to your heart's content
 
+## Technologies Used
 
-# Development server
+The app is built using the following technologies:
 
-Run `npm start` for a dev server
+- React
+- TypeScript
+- Material UI
+- React Router Dom
+- Redux Toolkit
+
+## Getting Started
+
+To get started with the Gallery App, follow these steps:
+
+1. Clone the repository:
+https://github.com/korotkovoleksii/gallery
+2. Install the dependencies:
+npm install
+3. Start the app:
+npm start
+
+The app should now be up and running on `http://localhost:3000`.
